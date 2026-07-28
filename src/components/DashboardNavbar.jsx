@@ -1,15 +1,34 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import { useState , useEffect } from "react";
+import axios from "axios";
 export default function DashboardNavbar() {
 
   const [search, setSearch] = useState("");
   const [showMenu, setshowMenu] = useState(false);
-
+const [suggestions , setSuggestions] = useState([]);
   const navigate = useNavigate();
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
+useEffect(() => {
+  if (!search.trim()) {
+    setSuggestions([]);
+    return;
+  }
 
+  const fetchSuggestions = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${search}`
+      );
 
+      setSuggestions(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchSuggestions();
+}, [search]);
   const handleLogout = () => {
 
     localStorage.removeItem("user");
@@ -175,6 +194,22 @@ username =
         className="w-140 md:w-96 sm:w-64 h-10 rounded-full bg-white text-black px-5 pr-10 outline-none focus:ring-2 focus:ring-red-500"
 
         />
+     <div className="absolute top-12 left-0 w-full bg-zinc-900 rounded-lg z-50 max-h-64 overflow-y-auto">
+  {suggestions.map((movie) => (
+    <div
+      
+  key={movie.id}
+  onClick={() => {
+    navigate(`/search/${movie.title || movie.name}`);
+    setSearch("");
+    setSuggestions([]);
+  }}
+  className="p-3 hover:bg-zinc-800 cursor-pointer"
+>
+      {movie.title || movie.name}
+    </div>
+  ))}
+</div>
 
 
 

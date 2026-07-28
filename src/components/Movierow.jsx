@@ -16,6 +16,7 @@ export default function Movierow({ title, movies }) {
           <MovieCard
 
             key={movie.id}
+            id={movie.id} 
 
             title={movie.title || movie.name}
 

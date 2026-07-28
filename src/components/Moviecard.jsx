@@ -2,80 +2,108 @@ import { useState } from "react";
 import { Heart, Play, X } from "lucide-react";
 
 export default function Moviecard({
+  id,
   title,
   image,
   overview,
   video,
   rating,
   year,
+  isFavouritePage,
+  setMyList,
 }) {
 
   const [showDetails, setShowDetails] = useState(false);
 
   const [favorite, setFavorite] = useState(() => {
-    const saved = JSON.parse(
-      localStorage.getItem("myList") || "[]"
-    );
+  if (isFavouritePage) return true;
 
-    return saved.some(
-      (movie) => movie.title === title
-    );
-  });
+  const saved = JSON.parse(
+    localStorage.getItem("myList") || "[]"
+  );
 
+  return saved.some(
+    (movie) => movie.title === title
+  );
+});
 
 
   const addToFavourite = () => {
 
-    const oldList = JSON.parse(
-      localStorage.getItem("myList") || "[]"
+  const oldList = JSON.parse(
+    localStorage.getItem("myList") || "[]"
+  );
+
+
+  // If we are on My List page, remove directly
+  if (isFavouritePage) {
+
+    const updatedList = oldList.filter(
+      (movie) => movie.id !== id
     );
 
 
-    const exists = oldList.find(
-      (movie) => movie.title === title
+    localStorage.setItem(
+      "myList",
+      JSON.stringify(updatedList)
     );
 
 
-    if (exists) {
+    setMyList(updatedList);
 
-      const updatedList = oldList.filter(
-        (movie) => movie.title !== title
-      );
+    setFavorite(false);
 
-
-      localStorage.setItem(
-        "myList",
-        JSON.stringify(updatedList)
-      );
+    return;
+  }
 
 
-      setFavorite(false);
+
+  const exists = oldList.find(
+    (movie) => movie.title === title
+  );
 
 
-    } else {
+  if (exists) {
+
+    const updatedList = oldList.filter(
+      (movie) => movie.title !== title
+    );
 
 
-      oldList.push({
-        title,
-        image,
-        overview,
-        video,
-        rating,
-        year,
-      });
+    localStorage.setItem(
+      "myList",
+      JSON.stringify(updatedList)
+    );
 
 
-      localStorage.setItem(
-        "myList",
-        JSON.stringify(oldList)
-      );
+    setFavorite(false);
 
 
-      setFavorite(true);
+  } else {
 
-    }
 
-  };
+    oldList.push({
+      id,
+      title,
+      image,
+      overview,
+      video,
+      rating,
+      year,
+    });
+
+
+    localStorage.setItem(
+      "myList",
+      JSON.stringify(oldList)
+    );
+
+
+    setFavorite(true);
+
+  }
+
+};
 
 
 
@@ -144,8 +172,7 @@ export default function Moviecard({
 
 
 
-      {/* Favourite Button */}
-
+     
       <button
 
         onClick={addToFavourite}

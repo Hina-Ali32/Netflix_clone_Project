@@ -64,6 +64,7 @@ Search results for: {query}
 results.map((movie)=>(
 <Moviecard
   key={movie.id}
+  id={movie.id} 
   title={movie.title || movie.name}
   image={movie.poster_path}
   overview={movie.overview}
@@ -73,6 +74,7 @@ results.map((movie)=>(
       ?.split("-")[0]
   }
   video={movie.video}
+
 />
 
 ))
