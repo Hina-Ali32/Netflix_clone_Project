@@ -27,28 +27,78 @@ export default function Home() {
           NETFLIX CLONE
         </p>
       </div>
+<h1
+className="
+text-white 
+font-bold 
+text-3xl 
+sm:text-4xl 
+md:text-5xl 
+lg:text-6xl
+text-center 
+max-w-3xl
+"
+>
+Unlimited movies, TV shows, and more
+</h1>
 
-      <h1 className="text-white font-bold text-3xl sm:text-3xl md:text-4xl text-center max-w-2xl">
-        Unlimited movies, TV shows, and more
-      </h1>
 
-      <p className="text-white text-2xlg sm:text-base text-bold md:text-lg text-center max-w-lg">
-        Watch anywhere. Cancel anytime.
-      </p>
+<p
+className="
+text-white 
+font-bold 
+text-lg 
+sm:text-xl 
+md:text-2xl 
+lg:text-3xl
+text-center 
+max-w-xl
+"
+>
+Watch anywhere. Cancel anytime.
+</p>
 
-      <p className="text-neutral-300 text-lg sm:text-sm md:text-base text-center max-w-md">
-        Discover thousands of movies and TV shows across every genre — from
-    blockbuster hits to hidden gems, all available whenever and wherever
-    you want to watch.
 
-      </p>
+<p
+className="
+text-neutral-300 
+text-base 
+sm:text-lg 
+md:text-xl 
+lg:text-2xl
+text-center 
+max-w-2xl
+"
+>
+Discover thousands of movies and TV shows across every genre — from blockbuster hits to hidden gems, all available whenever and wherever you want to watch.
+</p>
 
-      <button
-        onClick={() => navigate('/signup')}
-        className="mt-3 rounded-full text-black font-bold bg-red-500 hover:bg-white transition px-5 py-2 text-sm sm:px-6 sm:py-3 sm:text-base md:px-7 md:py-3 md:text-base"
-      >
-        Get Started
-      </button>
+     <button
+  onClick={() => navigate('/signup')}
+  className="
+mt-5
+rounded-full
+text-black
+font-bold
+bg-red-500
+hover:bg-white
+transition
+
+px-8
+py-3
+text-lg
+
+md:px-10
+md:py-4
+md:text-xl
+
+lg:px-12
+lg:py-4
+lg:text-xl
+"
+>
+  Get Started
+</button>
     </div>
   )
 }
