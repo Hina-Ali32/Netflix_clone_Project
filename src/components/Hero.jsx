@@ -1,6 +1,50 @@
-import { useState } from "react";
-import heroVideo from "../assets/hero_video.mp4";
+import { useEffect, useState } from "react";
+
+import video1 from "../assets/video1.mp4";
+import video2 from "../assets/video2.mp4";
+import video3 from "../assets/video3.mp4";
+import video4 from "../assets/video4.mp4";
+import video5 from "../assets/video5.mp4";
+import video6 from "../assets/video6.mp4";
+const videos=[
+ video1,
+  video2,
+  video3,
+  video4,
+  video5,
+  video6,
+];
+ 
+
+
+import { use } from "react";
+
 export default function Hero({ movie }) {
+const [currentVideo, setCurrentVideo] = useState(0);
+ 
+
+  useEffect(() => {
+
+  const timer = setTimeout(() => {
+
+    setCurrentVideo((prev) =>
+
+      prev === videos.length - 1
+        ? 0
+        : prev + 1
+
+    );
+
+  }, 20000);
+
+
+  return () => clearTimeout(timer);
+
+
+}, [currentVideo]);
+
+
+  
 
   const [showDetails, setShowDetails] = useState(false);
 
@@ -25,17 +69,19 @@ export default function Hero({ movie }) {
 
       <video
 
-        src={heroVideo}
+        
 
-        autoPlay
+src={videos[currentVideo]}
 
-        muted
+autoPlay
 
-        loop
+muted
 
-        playsInline
+playsInline
 
-        preload="auto"
+preload="auto"
+
+
 
         className="
         absolute

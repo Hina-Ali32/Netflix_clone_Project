@@ -10,6 +10,7 @@ import Animation from './pages/Animation.jsx'
 import Search from './pages/Search.jsx'
 import MyList from './pages/MyList.jsx'
 import PrivateRoute from './components/Privateroute.jsx'
+import MovieDetail from './pages/MovieDetail.jsx'
 function App() {
   
 
@@ -31,6 +32,8 @@ function App() {
   
 />
 <Route path="/mylist" element={<PrivateRoute>{<MyList/>}</PrivateRoute>}/>
+
+<Route path="/movie/:id" element={<PrivateRoute>{<MovieDetail />}</PrivateRoute>} />
     </Routes>
     
   

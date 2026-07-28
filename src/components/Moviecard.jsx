@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Heart, Play, X } from "lucide-react";
 
+import {  useNavigate } from "react-router-dom";
 export default function Moviecard({
   id,
   title,
@@ -12,7 +13,7 @@ export default function Moviecard({
   isFavouritePage,
   setMyList,
 }) {
-
+const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
 
   const [favorite, setFavorite] = useState(() => {
@@ -116,9 +117,9 @@ export default function Moviecard({
     min-w-[170px]
     md:min-w-[200px]
     h-[320px]
-    hover:h-[400px]
-    hover:min-w-[240px]
-    md:hover:min-w-[250px]
+    hover:h-[200px]
+    hover:min-w-[200px]
+    md:hover:min-w-[200px]
     overflow-hidden
     rounded-lg
     cursor-pointer
@@ -214,20 +215,11 @@ export default function Moviecard({
 
       <button
 
-        onClick={() => {
+       onClick={() => navigate(`/movie/${id}`)}
 
-          if(video){
+         
 
-            window.open(video, "_blank");
-
-          }
-          else{
-
-            alert("No trailer available");
-
-          }
-
-        }}
+      
 
         className="
           absolute
@@ -335,7 +327,7 @@ export default function Moviecard({
     text-gray-300
     text-sm
     leading-5
-    line-clamp-6
+    line-clamp-3
   "
 >
           {
@@ -463,20 +455,13 @@ export default function Moviecard({
 
             <button
 
-              onClick={() => {
+           
+onClick={() => navigate(`/movie/${id}`)}
 
-                if(video){
 
-                  window.open(video,"_blank");
+                
 
-                }
-                else{
-
-                  alert("No trailer available");
-
-                }
-
-              }}
+              
 
               className="
                 mt-5
