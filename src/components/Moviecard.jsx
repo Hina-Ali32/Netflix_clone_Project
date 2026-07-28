@@ -35,7 +35,7 @@ export default function Moviecard({
   );
 
 
-  // If we are on My List page, remove directly
+ 
   if (isFavouritePage) {
 
     const updatedList = oldList.filter(
