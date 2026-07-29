@@ -1,13 +1,35 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState , useEffect } from "react";
 import axios from "axios";
+import { getRecommendedMovies } from "../services/tmdb";
+import { motion , AnimatePresence} from 'motion/react';
 export default function DashboardNavbar() {
 
   const [search, setSearch] = useState("");
   const [showMenu, setshowMenu] = useState(false);
 const [suggestions , setSuggestions] = useState([]);
+const [showNotifications , setShowNotifications] = useState(false);
+const [recommended , setRecommended] = useState([]);
   const navigate = useNavigate();
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+
+useEffect(() => {
+  async function fetchRecommended() {
+    try {
+      const data = await getRecommendedMovies();
+
+      console.log("Fetched:", data);
+
+      setRecommended(data.slice(0, 4));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  fetchRecommended();
+}, []);
+
+
 
 useEffect(() => {
   if (!search.trim()) {
@@ -215,14 +237,53 @@ username =
 
 
 
-        <div className="relative cursor-pointer">
+         <div className="relative">
+        <span
+          onClick={() => setShowNotifications(!showNotifications)}
+          className="text-2xl cursor-pointer"
+        >
+          🔔
+        </span>
+<AnimatePresence>
 
-          <span className="text-2xl">
-            🔔
-          </span>
 
-        </div>
-
+        {showNotifications && (
+          <motion.div
+          initial= {{ opacity:0 }}
+          animate={{ opacity : 1}}
+          exit={{opacity :0}}
+          
+          className="absolute right-0 mt-3 w-72 bg-neutral-900 rounded-lg shadow-xl p-4 z-50">
+            <h3 className="text-white font-semibold mb-3">Recommended for you</h3>
+           <div className="flex flex-col gap-3">
+  {recommended.map((movie) => (
+    <div key={movie.id}
+    onClick={() =>{
+navigate(`/movie/${movie.id}`);
+    setShowNotifications(false);
+    }} 
+  
+    className="flex items-center justify-between gap-2"
+    >
+       
+      <p className="text-white font-medium">{movie.title}</p>
+      <p className="text-gray-400 text-xs">
+        ⭐ {movie.vote_average}/10
+      </p>
+      <img  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    alt={movie.title}
+                    className="w-12 h-16 object-cover rounded fllex-shrink-0 "
+                  />
+              
+    </div>
+   
+  ))}
+</div>
+                 
+            </motion.div>
+          
+        )}</AnimatePresence>
+      </div>
 
 
 

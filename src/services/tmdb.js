@@ -48,3 +48,9 @@ export async function getTopPicks() {
 
   return data.results;
 }
+export async function getRecommendedMovies() {
+  const response = await axios.get(`${BASE_URL}/movie/popular`, {
+    params: { api_key: API_KEY }
+  });
+  return response.data.results;
+}

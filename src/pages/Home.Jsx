@@ -2,6 +2,8 @@
 import { useNavigate } from 'react-router-dom'
 import Home_bg from '../assets/Home_bg.jpg'
 import { useEffect } from 'react';
+import {motion} from 'motion/react';
+
 export default function Home() {
   const navigate = useNavigate();
 
@@ -11,9 +13,25 @@ export default function Home() {
     navigate('/dashboard');
   }}, []
 );
-
+const container ={
+  hidden :{},
+  visible:{
+    transition:{ 
+     staggerChildren: 0.08
+    }
+  },
+};
+const items ={
+  hidden : { opacity: 0} ,
+visible :{opacity :1}
+}
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 gap-1">
+    <motion.div
+    
+    variants={container}
+initial="visible"
+animate=" hidden"
+className="relative min-h-screen flex flex-col items-center justify-center px-4 gap-1">
       <img
         src={Home_bg}
         alt="background"
@@ -27,7 +45,12 @@ export default function Home() {
           NETFLIX CLONE
         </p>
       </div>
-<h1 className="
+<motion.h1 
+variants={items}
+initial="hidden"
+animate="visible"
+
+className="
 text-white 
 font-bold 
 text-3xl 
@@ -38,10 +61,12 @@ text-center
 max-w-4xl
 ">
 Unlimited movies, TV shows, and more
-</h1>
+</motion.h1>
 
 
-<p className="
+<motion.p
+variants={items}
+className="
 text-white 
 font-bold
 text-lg 
@@ -52,10 +77,12 @@ text-center
 max-w-2xl
 ">
 Watch anywhere. Cancel anytime.
-</p>
+</motion.p>
 
 
-<p className="
+<motion.p
+variants={items}
+className="
 text-neutral-300 
 text-sm 
 sm:text-sm 
@@ -67,11 +94,14 @@ max-w-2xl
 Discover thousands of movies and TV shows across every genre — from
 blockbuster hits to hidden gems, all available whenever and wherever
 you want to watch.
-</p>
+</motion.p>
 
 
-<button
+<motion.button
 onClick={() => navigate('/signup')}
+whileHover={{scale:0.95,
+transition:{ type: "spring" , stiffness: 400 , damping:10 , duration: 0.5}}}
+whileTap ={{  scale :0.85}}
 className="
 mt-5
 rounded-full
@@ -99,7 +129,7 @@ lg:text-xl
 "
 >
 Get Started
-</button>
-    </div>
+</motion.button>
+    </motion.div>
   )
 }

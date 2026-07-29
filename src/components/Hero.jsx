@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-
 import video1 from "../assets/video1.mp4";
 import video2 from "../assets/video2.mp4";
 import video3 from "../assets/video3.mp4";
 import video4 from "../assets/video4.mp4";
 import video5 from "../assets/video5.mp4";
 import video6 from "../assets/video6.mp4";
+import { motion } from "motion/react";
 const videos=[
  video1,
   video2,
@@ -20,31 +20,27 @@ const videos=[
 import { use } from "react";
 
 export default function Hero({ movie }) {
-const [currentVideo, setCurrentVideo] = useState(0);
+const [ Currentvideo , setCurrentvideo] = useState(0);
  
+const [currentVideo, setCurrentVideo] = useState(0);
 
-  useEffect(() => {
+
+useEffect(() => {
 
   const timer = setTimeout(() => {
 
     setCurrentVideo((prev) =>
-
       prev === videos.length - 1
-        ? 0
-        : prev + 1
-
+      ? 0
+      : prev + 1
     );
 
-  }, 20000);
+  },10000);
 
 
   return () => clearTimeout(timer);
 
-
 }, [currentVideo]);
-
-
-  
 
   const [showDetails, setShowDetails] = useState(false);
 
@@ -69,7 +65,6 @@ const [currentVideo, setCurrentVideo] = useState(0);
 
       <video
 
-        
 
 src={videos[currentVideo]}
 
@@ -134,9 +129,13 @@ preload="auto"
 
 
 
-         <h1 className="text-5xl font-bold">
+         <motion.h1
+         initial={{ scale:0.5, opacity:0}}
+         animate={{scale:1 , opacity:1}}
+         transition={{duration:0.5}}
+         className="text-5xl font-bold">
   CHROMA
-</h1>
+</motion.h1>
 
       
 

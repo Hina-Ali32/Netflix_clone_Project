@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { Play } from "lucide-react";
+import { getRecommendedMovies } from "../services/tmdb";
+
 
 export default function MovieDetail() {
   const { id } = useParams();
@@ -52,11 +54,17 @@ export default function MovieDetail() {
               <span className="text-green-400 font-semibold">
                 {Math.round(movie.vote_average * 10)}% Match
               </span>
-              <span>{movie.release_date?.slice(0, 4)}</span>
-              <span className="border border-gray-500 px-1.5 py-0.5 rounded text-xs">
-                {movie.adult ? "18+" : "PG-13"}
-              </span>
-              <span>{movie.runtime} min</span>
+                <span>
+    ⭐ {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"} / 10
+  </span>
+
+  <span>{movie.release_date?.slice(0, 4)}</span>
+  <span className="border border-gray-500 px-1.5 py-0.5 rounded text-xs">
+    {movie.adult ? "18+" : "PG-13"}
+  </span>
+  <span>{movie.runtime} min</span>
+
+             
             </div>
 
             <div className="flex flex-wrap gap-2 mb-6">
@@ -94,6 +102,7 @@ export default function MovieDetail() {
                 <span className="text-gray-500 block">Vote Count</span>
                 {movie.vote_count?.toLocaleString()}
               </div>
+
             </div>
           </div>
 

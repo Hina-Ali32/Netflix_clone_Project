@@ -111,13 +111,14 @@ const navigate = useNavigate();
   return (
 
 <div
+  onClick={() => navigate(`/movie/${id}`)}
   className="
     relative
     group
     min-w-[170px]
     md:min-w-[200px]
     h-[320px]
-    hover:h-[200px]
+    hover:h-[300px]
     hover:min-w-[200px]
     md:hover:min-w-[200px]
     overflow-hidden
@@ -137,6 +138,7 @@ const navigate = useNavigate();
       <img
 
         onClick={() => setShowDetails(true)}
+        
 
         src={`https://image.tmdb.org/t/p/w500${image}`}
 
@@ -215,7 +217,6 @@ const navigate = useNavigate();
 
       <button
 
-       onClick={() => navigate(`/movie/${id}`)}
 
          
 
@@ -456,11 +457,18 @@ const navigate = useNavigate();
             <button
 
            
-onClick={() => navigate(`/movie/${id}`)}
+
 
 
                 
-
+onClick={(e) => {
+    e.stopPropagation();
+    if (video) {
+      window.open(video, "_blank");
+    } else {
+      alert("No trailer available");
+    }
+  }}
               
 
               className="

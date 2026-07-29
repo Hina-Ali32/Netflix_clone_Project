@@ -1,8 +1,13 @@
 import MovieCard from "./Moviecard";
-
+import {motion} from 'motion/react';
 export default function Movierow({ title, movies }) {
   return (
-    <div className="px-6 md:px-14 mt-10">
+    <motion.div
+    initial ={{ opacity:0}} 
+    whileInView={{opacity:1}}
+    transition={{duration:0.5}}
+    viewport={{once:true , amount:0.3}}
+    className="px-6 md:px-14 mt-10">
 
       <h2 className="text-white text-2xl font-bold mb-5">
         {title}
@@ -39,6 +44,6 @@ export default function Movierow({ title, movies }) {
 
       </div>
 
-    </div>
+    </motion.div>
   );
 }
