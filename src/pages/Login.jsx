@@ -1,12 +1,15 @@
 import Home_bg from '../assets/Home_bg.jpg'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { login} from '../redux/userSlice'
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 const navigate = useNavigate();
+const dispatch = useDispatch();
   function onSubmit(data) {
-    localStorage.setItem('user', JSON.stringify(data));
+    
+    dispatch(login(data));
     navigate('/dashboard')
   }
 

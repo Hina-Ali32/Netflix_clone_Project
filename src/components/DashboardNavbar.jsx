@@ -3,6 +3,7 @@ import { useState , useEffect } from "react";
 import axios from "axios";
 import { getRecommendedMovies } from "../services/tmdb";
 import { motion , AnimatePresence} from 'motion/react';
+import { useSelector } from "react-redux";
 export default function DashboardNavbar() {
 
   const [search, setSearch] = useState("");
@@ -67,37 +68,19 @@ useEffect(() => {
 
   };
 
-const storedUser = localStorage.getItem("user");
+const currentUser = useSelector((state) => state.user.currentUser);
 
 let username = "User";
-
-
-if (storedUser) {
-
-  try {
-
-    const userData = JSON.parse(storedUser);
-
-username =
-      userData.name ||
-      userData.username ||
-      userData.userName ||
-      userData.email?.split("@")[0] ||
-      "User";
-
-  }
-
-  catch {
-
-    username = storedUser;
-
-  }
-
+if (currentUser) {
+  username =
+    currentUser.name ||
+    currentUser.username ||
+    currentUser.userName ||
+    currentUser.email?.split("@")[0] ||
+    "User";
 }
 
-
-
-  const firstLetter = username.charAt(0).toUpperCase();
+const firstLetter = username.charAt(0).toUpperCase();
 
 
 
