@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Heart, Play, X } from "lucide-react";
-
+import { motion } from "framer-motion";
 import {  useNavigate } from "react-router-dom";
 export default function Moviecard({
   id,
@@ -15,7 +15,7 @@ export default function Moviecard({
 }) {
 const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
-
+const [ isHovered , setIsHovered] = useState(false);
   const [favorite, setFavorite] = useState(() => {
   if (isFavouritePage) return true;
 
@@ -112,6 +112,8 @@ const navigate = useNavigate();
 
 <div
   onClick={() => navigate(`/movie/${id}`)}
+  onMouseEnter={()=> setIsHovered(true)}
+    onMouseLeave={()=> setIsHovered(false)}
   className="
     relative
     group
@@ -258,10 +260,21 @@ const navigate = useNavigate();
 
 
 
+
+
       {/* Hover Details */}
 
-      <div
-
+      <motion.div
+      initial ={{ y:80 ,opacity:0   }}
+animate={
+    isHovered
+      ? { y: 0, opacity: 1 }
+      : { y: 80, opacity: 0 }
+  }
+  transition={{
+    duration: 0.35,
+    ease: "easeOut",
+  }}
         className="
           absolute
           bottom-0
@@ -275,8 +288,7 @@ const navigate = useNavigate();
           to-transparent
           opacity-0
           group-hover:opacity-100
-          transition
-          duration-300
+          
           pointer-events-none
         "
 
@@ -340,7 +352,7 @@ const navigate = useNavigate();
         </p>
 
 
-      </div>
+      </motion.div>
 
 
 
